@@ -1,26 +1,123 @@
 {
-  "name": "网络工具入门手册",
-  "shortName": "网络手册",
-  "description": "用十篇文章，读懂代理、VPN、Tor，以及客户端、核心、协议与配置。先理解，再选择。",
+  "name": "科学上网入门手册",
+  "shortName": "科学上网入门手册",
+  "description": "机场订阅和机场节点是什么？从代理、VPN 到 Clash、V2Ray，用十篇文章讲清工具关系、配置方法与连接排查，选择服务前先看懂这些概念。",
   "repository": "https://github.com/toml66l/proxy_info",
   "branch": "main",
   "reviewed": "2026-10-18",
   "groups": [
-    { "id": "basics", "name": "基础认知", "caption": "先把概念分清", "description": "从访问路径开始，弄清代理、VPN 与 Tor 分别解决什么问题。" },
-    { "id": "ecosystem", "name": "工具生态", "caption": "看懂名字背后的角色", "description": "客户端、核心和协议不是一回事。把常见名称放回各自的位置。" },
-    { "id": "practice", "name": "配置与排查", "caption": "让问题有迹可循", "description": "理解订阅、节点与规则，按顺序排查，而不是反复重装。" },
-    { "id": "safety", "name": "安全与边界", "caption": "能连上，还不够", "description": "识别不可靠的承诺，了解隐私、权限与使用责任。" }
+    {
+      "id": "basics",
+      "name": "基础认知",
+      "caption": "先把概念分清",
+      "description": "从访问路径开始，弄清代理、VPN 与 Tor 分别解决什么问题。"
+    },
+    {
+      "id": "ecosystem",
+      "name": "工具生态",
+      "caption": "看懂名字背后的角色",
+      "description": "客户端、核心和协议不是一回事。把常见名称放回各自的位置。"
+    },
+    {
+      "id": "practice",
+      "name": "配置与排查",
+      "caption": "让问题有迹可循",
+      "description": "理解订阅、节点与规则，按顺序排查，而不是反复重装。"
+    },
+    {
+      "id": "safety",
+      "name": "安全与边界",
+      "caption": "能连上，还不够",
+      "description": "识别不可靠的承诺，了解隐私、权限与使用责任。"
+    }
   ],
   "articles": [
-    { "slug": "what-is-network-proxy", "file": "01-翻墙是什么-新手基本概念.md", "group": "basics", "label": "翻墙是什么", "summary": "网站为什么打不开？改变网络路径能做什么，又不能保证什么？" },
-    { "slug": "proxy-vpn-tor", "file": "02-代理-VPN-Tor有什么区别.md", "group": "basics", "label": "代理、VPN、Tor 的区别", "summary": "从覆盖范围、信任关系与隐私目标，理解三种不同的网络工具。" },
-    { "slug": "proxy-ecosystem", "file": "03-代理工具生态总览.md", "group": "ecosystem", "label": "代理工具生态总览", "summary": "把客户端、核心、协议、配置和服务拆开，不再被软件名称绕晕。" },
-    { "slug": "protocols", "file": "04-代理协议详解.md", "group": "ecosystem", "label": "代理协议详解", "summary": "从 HTTP、SOCKS5 到 WireGuard，分清通信规则、传输与安全层。" },
-    { "slug": "clash-family", "file": "05-Clash家族到底有哪些区别.md", "group": "ecosystem", "label": "Clash 家族有哪些区别", "summary": "Clash、Meta、Mihomo、Verge Rev：名称相近，负责的事情却不同。" },
-    { "slug": "v2ray-xray", "file": "06-V2Ray-Xray-v2rayN-v2rayNG的关系.md", "group": "ecosystem", "label": "V2Ray 与 Xray 的关系", "summary": "谁是核心，谁是客户端？读懂 v2rayN、v2rayNG 和 sing-box。" },
-    { "slug": "config-subscriptions", "file": "07-配置订阅节点与规则.md", "group": "practice", "label": "配置、订阅、节点与规则", "summary": "配置能导入，不代表流量走对了。看懂客户端里最常见的设置。" },
-    { "slug": "troubleshooting", "file": "08-连接后打不开网页-基础排查方法.md", "group": "practice", "label": "连接后打不开网页怎么办", "summary": "从问题范围、日志、代理设置到 DNS，一次只改一个变量。" },
-    { "slug": "tool-security", "file": "09-如何判断网络工具是否安全可靠.md", "group": "safety", "label": "如何判断工具是否安全可靠", "summary": "软件来源、权限与日志政策，比“朋友说好用”更值得认真检查。" },
-    { "slug": "privacy-boundaries", "file": "10-翻墙中的隐私法律与使用边界.md", "group": "safety", "label": "隐私、法律与使用边界", "summary": "加密不等于匿名，工具也不能替你决定行为的权限与责任。" }
-  ]
+    {
+      "slug": "what-is-network-proxy",
+      "file": "01-翻墙是什么-新手基本概念.md",
+      "group": "basics",
+      "label": "翻墙是什么",
+      "summary": "网站为什么打不开？改变网络路径能做什么，又不能保证什么？",
+      "description": "翻墙、梯子和机场分别指什么？从网站打不开的原因讲起，解释代理与 VPN 如何改变访问路径，以及连接成功后仍需注意的隐私边界。"
+    },
+    {
+      "slug": "proxy-vpn-tor",
+      "file": "02-代理-VPN-Tor有什么区别.md",
+      "group": "basics",
+      "label": "代理、VPN、Tor 的区别",
+      "summary": "从覆盖范围、信任关系与隐私目标，理解三种不同的网络工具。",
+      "description": "机场 VPN 和代理是一回事吗？对照代理、VPN、Tor 的覆盖范围、信任关系与速度限制，弄清机场节点和 VPN 服务之间的区别。"
+    },
+    {
+      "slug": "proxy-ecosystem",
+      "file": "03-代理工具生态总览.md",
+      "group": "ecosystem",
+      "label": "代理工具生态总览",
+      "summary": "把客户端、核心、协议、配置和服务拆开，不再被软件名称绕晕。",
+      "description": "代理机场、Clash、V2Ray 和节点是什么关系？按客户端、核心、协议、配置与服务拆开说明，避免把装好软件误当成已经拥有连接服务。"
+    },
+    {
+      "slug": "protocols",
+      "file": "04-代理协议详解.md",
+      "group": "ecosystem",
+      "label": "代理协议详解",
+      "summary": "从 HTTP、SOCKS5 到 WireGuard，分清通信规则、传输与安全层。",
+      "description": "Trojan、VLESS、VMess、Shadowsocks 与 WireGuard 有什么区别？从代理协议的用途与配置条件入手，解释协议、传输和 TLS 各自负责什么。"
+    },
+    {
+      "slug": "clash-family",
+      "file": "05-Clash家族到底有哪些区别.md",
+      "group": "ecosystem",
+      "label": "Clash 家族有哪些区别",
+      "summary": "Clash、Meta、Mihomo、Verge Rev：名称相近，负责的事情却不同。",
+      "description": "看 Clash 机场推荐前，先分清 Clash、Meta、Mihomo 与 Clash Verge Rev。了解核心和客户端的关系，核对机场订阅是否适用于自己的客户端。"
+    },
+    {
+      "slug": "v2ray-xray",
+      "file": "06-V2Ray-Xray-v2rayN-v2rayNG的关系.md",
+      "group": "ecosystem",
+      "label": "V2Ray 与 Xray 的关系",
+      "summary": "谁是核心，谁是客户端？读懂 v2rayN、v2rayNG 和 sing-box。",
+      "description": "V2Ray、Xray、v2rayN、v2rayNG 分别是什么？讲清核心与客户端的关系、平台支持和订阅兼容，理解为什么同一份节点配置未必处处通用。"
+    },
+    {
+      "slug": "config-subscriptions",
+      "file": "07-配置订阅节点与规则.md",
+      "group": "practice",
+      "label": "配置、订阅、节点与规则",
+      "summary": "配置能导入，不代表流量走对了。看懂客户端里最常见的设置。",
+      "description": "机场订阅、机场节点和配置文件有什么区别？解释订阅更新、代理组、DNS 与分流规则，弄清导入订阅后如何判断应用是否经过代理。"
+    },
+    {
+      "slug": "troubleshooting",
+      "file": "08-连接后打不开网页-基础排查方法.md",
+      "group": "practice",
+      "label": "连接后打不开网页怎么办",
+      "summary": "从问题范围、日志、代理设置到 DNS，一次只改一个变量。",
+      "description": "机场节点能测出延迟，网页却打不开？从问题范围、日志、系统代理到 DNS 逐步排查，说明机场测速结果能反映什么、不能证明什么。"
+    },
+    {
+      "slug": "tool-security",
+      "file": "09-如何判断网络工具是否安全可靠.md",
+      "group": "safety",
+      "label": "如何判断工具是否安全可靠",
+      "summary": "软件来源、权限与日志政策，比“朋友说好用”更值得认真检查。",
+      "description": "看机场测评或性价比机场推荐时，该核对哪些信息？从软件来源、权限、日志政策和售后条款入手，判断服务是否值得信任。"
+    },
+    {
+      "slug": "privacy-boundaries",
+      "file": "10-翻墙中的隐私法律与使用边界.md",
+      "group": "safety",
+      "label": "隐私、法律与使用边界",
+      "summary": "加密不等于匿名，工具也不能替你决定行为的权限与责任。",
+      "description": "使用机场订阅或 VPN 后，谁还能看到你的连接信息？解释 HTTPS、账号登录与网络出口之间的关系，说明隐私、服务条款和使用责任的边界。"
+    }
+  ],
+  "seoTitle": "代理、VPN、Clash 与订阅配置入门｜科学上网入门手册",
+  "promotion": {
+    "url": "",
+    "label": "查看机场与订阅服务整理",
+    "description": "先核对客户端兼容、订阅方式、试用与售后，再决定是否选择连接服务。"
+  },
+  "aboutDescription": "了解科学上网入门手册的写作方法、参考来源、内容纠错与外部服务入口，查看机场订阅和 VPN 相关科普的适用范围、隐私说明及使用边界。"
 }

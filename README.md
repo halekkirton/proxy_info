@@ -1,4 +1,4 @@
-# 网络工具入门手册
+# 科学上网入门手册
 
 一个为十篇中文科普文章制作的 GitHub Pages 静态站点。纸白与墨绿配色、分组阅读目录、独立文章页，不依赖前端框架，也不需要数据库。
 
@@ -32,27 +32,27 @@ npm run preview
 
 不需要切换到 `gh-pages` 分支，不要将发布目录设置成文章源目录。工作流只上传生成的 `dist/`，不会发布技能文件、工作记录或整个仓库文件树。
 
-部署时通过 `actions/configure-pages` 读取真实站点地址：仓库站点的 `/airport/` 子路径、自定义域名与用户首页都由同一份模板处理。更换仓库、分支或所有者后，同步修改 `site/config.json` 的仓库信息和工作流分支。
+部署时通过 `actions/configure-pages` 读取真实站点地址：仓库站点的 `/proxy_info/` 子路径、自定义域名与用户首页都由同一份模板处理。更换仓库、分支或所有者后，同步修改 `site/config.json` 的仓库信息和工作流分支。
 
 参考：[GitHub 官方自定义 Pages 工作流说明](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages)。
 
 ## 模拟仓库子路径
 
 ```powershell
-$env:SITE_URL='https://toml66l.github.io/airport'
+$env:SITE_URL='https://toml66l.github.io/proxy_info'
 npm run build
 npm run check
 npm run preview
 ```
 
-此时本地地址为 `http://127.0.0.1:4173/airport/`。恢复根路径预览前执行：
+此时本地地址为 `http://127.0.0.1:4173/proxy_info/`。恢复根路径预览前执行：
 
 ```powershell
 Remove-Item Env:SITE_URL -ErrorAction SilentlyContinue
 npm run dev
 ```
 
-有 `SITE_URL` 时构建会输出 canonical、站点地图和 robots 的站点地图地址；不设置时是本地预览模式，不会伪造正式站点地址。也可以单独设置 `BASE_PATH=/airport` 测试子路径。
+有 `SITE_URL` 时构建会输出 canonical、站点地图和 robots 的站点地图地址；不设置时是本地预览模式，不会伪造正式站点地址。也可以单独设置 `BASE_PATH=/proxy_info` 测试子路径。
 
 ## 内容在哪里改
 
@@ -88,3 +88,9 @@ npm run test:browser
 ## 说明
 
 站点不接入统计、广告、外部字体或评论服务。外部参考链接与托管平台仍有各自的隐私政策。项目没有替文章声明未经授权的内容许可；若要开放转载，应由权利人另行明确授权范围。
+
+## 服务信息入口与 SEO
+
+首页以及配置、安全相关文章末尾预留服务信息区域。在 `site/config.json` 的 `promotion.url` 填写完整的 HTTPS GitHub 推荐页面地址即可显示按钮；空值时仅显示整理中提示。`promotion.label` 和 `promotion.description` 控制入口文案。源码入口与推荐入口独立。
+
+`seoTitle` 控制首页搜索标题；文章使用各自真实标题，并分别维护搜索描述 description 与卡片摘要 summary，不添加关键词堆砌。正式构建使用 `SITE_URL` 设置真实部署地址，生成 canonical 与 sitemap。404 保持 noindex 且不输出 canonical。

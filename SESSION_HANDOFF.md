@@ -1,87 +1,127 @@
-# 换机与会话恢复交接
+# 会话恢复与项目交接
 
-最后整理：2026-10-19。本文件是项目交接说明，不是 Codex 原始会话存档；在新机器开新会话，要求助手先读本文件即可接续工作。
+最后整理：2026-10-20。本文件记录可恢复工作的项目状态、用户决定和未来规划，不是原始聊天逐字存档。恢复时以实际文件与 Git 状态为准，不把规划当成已发布内容。
 
-## 新机器开始
+## 给接续助手
 
-安装 Git 和 Node.js 22 或更高版本，使用你自己的 GitHub 凭据登录，然后执行：
+先读本文件、README.md、site/EDITORIAL.md、humanize-writing/SKILL.md、site/CONTENT_ROADMAP.md 和 site/config.json。检查 Git 状态后再操作，保留未提交修改，不强制推送，不恢复用户已删除的旧脚本。当前目录为 /Users/mrren/CodeBuddy/proxy_info；遵循适用的 AGENTS.md，其中引用 /Users/mrren/.codex/RTK.md，当前环境的 shell 命令需以 rtk 为前缀。
 
-```powershell
-git clone https://github.com/toml66l/airport.git
-cd airport
-npm ci
-npm run dev
-```
+用户重视直接完成工作，避免重复确认已授权的常规操作。文章必须自然、准确，不编造经历、测试、数据或来源，不保证 AI 检测结果。不要把历史 Token、密码或个人配置写入文件、提交或远程地址。
 
-打开 `http://127.0.0.1:4173/` 查看网站。若已复制完整仓库，直接进入该目录，先检查 `git status`，不要覆盖未提交修改。
+## 当前项目与版本
 
-将下面这段发送给新机器上的编码助手：
+- 站名：科学上网入门手册，已替换“网络工具入门手册”。
+- 当前远程：https://github.com/toml66l/proxy_info.git；分支 main。
+- 本地最新提交：6ecb7e2，Import airport guide site；此前已成功推送初始导入。此次未联网重新核对远程分支。
+- 用户已于 2026-10-20 要求通过本地 HTTP 代理 127.0.0.1:7897 提交并推送当前页面、SEO、文章、关键词 CSV 与路线图。提交号和远程同步情况应通过 git log、git status 与远程查询确认，不依赖本文静态记录。
+- 旧恢复文件中的 airport 仓库、9656bfe 提交及早期推送失败记录已被当前状态替代，不应继续作为当前部署依据。
+- GitHub Actions、Pages 真实线上部署结果尚未确认，不应宣称已经上线。
 
-```text
-请先读取当前项目的 SESSION_HANDOFF.md、README.md、site/EDITORIAL.md 和 humanize-writing/SKILL.md，再继续工作。先检查 Git 状态与远程提交，不要恢复用户已删除的文件，不要强制推送。文章必须遵循 humanize-writing 的适用指令；不要虚构经历、数据或引用。当前优先事项是确认远程同步及 GitHub Pages 部署，然后启动预览供我查看。
-```
+## 网站实现与路径
 
-## 用户要求与已完成内容
-
-- 用户要求把现有十篇中文网络工具科普文章做成 GitHub Pages 网站，可纠错、补充，但文章严格遵循 `humanize-writing`。
-- 已实现首页、十篇独立文章页、分组目录、页内目录、上下篇导航、关于与免责声明、404 页面，以及响应式手机布局。
-- 使用 Node.js 与 markdown-it 生成静态 HTML；不依赖数据库、外部字体、统计、广告或 CDN。JavaScript 只做阅读进度与目录高亮，禁用后仍能阅读导航。
-- 已为文章补充官方资料链接，修正协议分层、VPN 与 HTTPS 边界、v2rayN 平台支持、Mihomo 与客户端关系、TUN 与全局模式等表述。
-- 采用 skill 指令 12、13、21、23，保留已经自然的表达，不全量套用 25 条，不编造第一人称经历，不故意加入逻辑错误。
-- 内容技术复核日期为 2026-10-18，不要仅因构建或换机就自动更新文章复核日期。
-
-## 文件与命令
+Node.js 22+ 与 markdown-it 构建静态站；无数据库或前端框架。首页、十篇文章、关于页共 12 个正常页面，另有 404。具有分组目录、页内目录、上下篇、移动端布局、阅读进度与目录高亮；禁用 JavaScript 后仍可阅读导航。纸白与墨绿视觉已获用户认可，不需另起设计。
 
 | 路径 | 用途 |
 |---|---|
-| `github_article/代理工具生态入门系列-最终版/` | 十篇文章的唯一正文来源 |
-| `humanize-writing/SKILL.md` | 写作与润色规范，换机后也须读取 |
-| `site/EDITORIAL.md` | 本轮编辑方法、事实修订与来源边界 |
-| `site/config.json` | 站名、文章摘要、分组、顺序、固定网址 |
-| `site/assets/` | CSS、渐进增强脚本与图标 |
-| `scripts/` | 构建、预览、结构检查及浏览器检查 |
-| `.github/workflows/pages.yml` | 推送 main 后构建并部署 Pages |
-| `README.md` | 完整使用、部署及子路径测试说明 |
+| github_article/代理工具生态入门系列-最终版/ | 01–10 Markdown 为唯一正文来源 |
+| humanize-writing/SKILL.md | 用户明确指定的写作规范 |
+| site/EDITORIAL.md | 编辑规则、技术修订与本轮逐篇记录 |
+| site/config.json | 站名、SEO、分组、固定 URL、推广入口与复核日期 |
+| site/about.md | 关于、隐私和使用边界 |
+| site/assets/ | 样式、图标和渐进增强脚本 |
+| scripts/build.mjs | Markdown 转 HTML 与元数据生成 |
+| scripts/serve.mjs | 本地预览，可通过 PORT 指定端口 |
+| scripts/check.mjs | 页面、链接、锚点、引用和元数据检查 |
+| scripts/browser-check.mjs | 桌面、移动端与无 JS 检查 |
+| .github/workflows/pages.yml | main 分支的 Pages 构建部署 |
+| KeywordStats_2026_10_20.csv | Bing 下载的关键词、趋势与印象数 |
+| site/CONTENT_ROADMAP.md | 104 个编号选题及分站候选方案 |
 
-```powershell
-npm run build
-npm run check
-npm run test:browser
+构建输出 dist/，与 node_modules/、.preview/ 一样被 Git 忽略。不要直接编辑生成 HTML。无外部字体、CDN、统计、评论或广告脚本。用户已说不用管脚本，.codebuddy/memory 中的旧脚本不是本次工作目标。
+
+## 用户已确定的商业与编辑方向
+
+目标是自然搜索引流，经自己的 GitHub 推荐页面导向机场服务，赚取推广佣金。站内不会直接放机场链接，用户提供的是 GitHub 页面地址；该地址目前仍未提供，具体机场、套餐和资料以后再定。
+
+用户明确不希望加可见的佣金说明，不要在后续编辑中擅自恢复。保留已有链接 sponsored 属性；不能伪造独立测评、实测经历或性能保证。
+
+首页与第 07、09 篇已有独立服务信息区域。site/config.json 的 promotion.url 为空时显示“机场与订阅服务整理将在 GitHub 发布，目前尚未开放入口。”；填入完整 HTTPS github.com 页面后显示按钮，构建会校验 URL。源码仓库入口与推荐入口分开。首页“不推荐服务 · 不贩卖焦虑”已改为“先懂原理 · 再选服务”，页脚使用“科普内容与服务信息分开”。
+
+不推广免费机场、免费节点或免费试用。用户认为免费服务在需要时不可用的代价很高，这是选择方向，不应冒充作者亲身故事，也不能推断所有免费服务都差。识别“永久免费且无限速”等不可靠承诺的提醒可以保留。
+
+## Bing SEO 与页面描述
+
+主要目标搜索引擎是 Bing，承接真实长尾需求，不过度优化。参考根目录 CSV（UTF-8 BOM，关键字/趋势/印象数）；印象数不是搜索量、竞争度或排名保证。品牌导航、招聘、节日等无关词，以及空格和拼写变体不堆砌。
+
+已按主题融入机场订阅、机场节点、机场 VPN、代理机场、Clash 订阅兼容、机场测速、机场测评、性价比机场、按量计费机场等词。不做缺乏实测的排行和比较。文章各有 description，卡片 summary 独立；首页也已有 description，用户了解后表示有就算了，不必为加长而加长。
+
+首页 seoTitle 为“代理、VPN、Clash 与订阅配置入门｜科学上网入门手册”。已有 canonical、OG、Twitter 摘要、sitemap、robots；404 noindex 且无 canonical。只有设置真实 SITE_URL 才生成正式站点地址。
+
+用户担心没有外链时难以收录。此前讨论过 Bing Webmaster Tools、提交 sitemap、URL 检查与 IndexNow，尚未实际配置；独立域名也未选定。不能保证收录或收益，不把多站当作必然提升排名的方法。
+
+## 十篇文章的定位与本轮复查
+
+当前十篇保留为入门主站：01 基础概念；02 代理/VPN/Tor；03 工具生态；04 协议；05 Clash/Mihomo；06 V2Ray/Xray/客户端；07 配置订阅节点规则；08 基础排查；09 安全可靠性与服务选择；10 隐私法律边界。固定 URL 不变，不因分站规划迁移这十篇。进阶配置、企业部署与游戏内容以后另站承接。
+
+2026-10-20 已逐篇润色，遵循 skill 指令 12、13、21、23：削减重复铺垫、框架词、口号和整套比喻，调整长短句与段落衔接，把关键词放进实际相关的讨论。第 02 篇标题缓和训诫语气，第 10 篇修正对象列举的歧义；技术关系、限制与参考资料保留。逐篇修改见 EDITORIAL。
+
+没有全套使用 25 条，不添加虚构第一人称，不故意制造逻辑错误，不承诺其他 AI 无法识别。此前技术复核日期仍为 2026-10-18；此次表达复查不等于重新在线验证全部资料，不自动刷新 reviewed。
+
+重要技术边界：HTTP CONNECT 与 SOCKS5 能力看实现；VPN 隧道和 HTTPS 不同层；核心、客户端、协议、配置、服务不可混称；Clash Verge Rev 内置 Mihomo，切换范围随版本；v2rayN 官方已列 Windows/Linux/macOS；全局模式仅处理进入核心的流量，TUN 范围仍受权限、路由、排除规则影响；状态成功不等于全部目标可达；技术来源不是具体法律依据。
+
+## 多站与后续选题
+
+用户明确倾向多个独立站点，分散 Bing 不收录、失去展示或搜索表现下降的风险，不希望所有主题揉进一个 GitHub 页面。候选分工：
+
+1. 当前站：科学上网入门、服务选择与基础排查。
+2. 客户端与进阶代理：Clash/Mihomo/sing-box、Proxifier、代理链、DNS、开发环境。
+3. 自建网络与企业 VPN：远程接入、WireGuard/OpenVPN、企业权限和运维。
+4. 游戏网络与加速器：延迟、抖动、丢包、NAT、游戏场景与加速器判断。
+
+账号、仓库、域名、最终拆分与上线节奏未确定。各站应有独立内容，不复制铺站或批量互链；多站可能增加维护成本，也不能保证收录。
+
+路线图共 104 个编号选题，前 38 项较详细，后续部分较简略；是选题和提纲，不是已完成文章。包括自建机场、自建 VPN、Clash 负载均衡、二层代理/代理链、Proxifier、ltproxy、企业 VPN、游戏加速、路由器与开发环境。ltproxy 具体指哪个项目尚不明确，需要用户提供项目地址后再写，不能凭名称猜测。
+
+候选优先五篇：Proxifier、二层代理/代理链、Clash 负载均衡、自建 VPN 的 WireGuard/OpenVPN、机场测速如何理解。并非已经承诺的发布排期。
+
+自建内容必须讲经济风险：VPS 或 IP 买后不可用、线路不合适、年付锁定和退款受限、流量/备用机/换 IP 额外支出、时间成本、迁移重购与剩余套餐损失。即使初始可用，后续仍可能出现 IP、端口或连接被封锁或限制；不能保证一次搭建长期可用，也不能把所有断连直接归因于封锁。
+
+## 本地预览与部署
+
+此前 4713 出现停止和 404，排查后用户确认可用。默认端口仍是 4173；延续这次查看时使用 4713，不应假定后台进程一直存在。先检查端口，避免重复启动或杀掉无关进程。
+
+macOS/zsh 示例（当前环境命令前加 rtk）：
+
+```sh
+rtk npm ci
+rtk proxy env PORT=4713 node scripts/serve.mjs
 ```
 
-浏览器测试使用本地 Microsoft Edge；其他环境参见 README 的 Chromium 安装说明。`dist/`、`.preview/`、`node_modules/` 均已忽略，不应提交。
+打开 http://127.0.0.1:4713/。普通预览在启动时构建，编辑后需再次 build；需要监听时可用 --watch，但此前受环境监听限制出现过 EMFILE。启动监听服务可能需要环境授权。不要把 HTTP 200 当成页面正确，必要时在浏览器确认标题和正文。
 
-## 已完成验证
+部署可选两条路线，无须再用 Jekyll 将 Markdown 转 HTML：
 
-- 根路径与 `/airport/` 部署子路径的构建和结构检查通过：13 个 HTML 文件、557 个内部链接，以及标题、引用、元数据和路径检查。
-- 浏览器检查通过：1440、390、320 像素宽度下的 12 个正常页面、导航、404、横向溢出与脚本错误检查。
-- 禁用 JavaScript 后的手机目录与文章导航检查通过。
-- 已完成脚本语法检查与 `git diff --check`。
-- 本地持久预览服务尚未确认启动；换机后运行 `npm run dev`，不要假定已有后台服务。
+- 源码仓库走 Actions：Settings → Pages → Source 选 GitHub Actions，main 推送触发已有工作流，读取真实 Pages base URL，构建检查后上传 dist。
+- 手工发布：先按实际地址重建，把 dist 的全部内容（包括 .nojekyll）放到发布仓库的分支根目录，Pages 选 Deploy from a branch 与该分支 / (root)。不需要把 dist 文件夹本身套在外层。注意不要将源码仓库整棵目录误当发布产物，也不要与 Actions 配置混用。
 
-## Git 与发布状态
+仓库站点发布前示例：
 
-- 远程：`https://github.com/toml66l/airport.git`，分支：`main`。
-- 网站与文章的实现提交：`9656bfe`，说明：`Build GitHub Pages guide site and refine ten articles`。
-- 该提交保留了用户此前删除无用脚本、旧首页与重复文章目录的清理，不要擅自恢复。
-- 此前推送曾被 GitHub 拒绝，原因是 Token 缺少 `workflow` 权限；用户表示已添加权限，后续重试遇到连接重置和连接超时。
-- 上述为交接文档编写前的历史状态，不代表当前推送结果。用下面的命令核对，远程分支应包含实现提交及本交接文档所在提交：
-
-```powershell
-git status --short
-git log -3 --oneline
-git fetch origin
-git log --oneline origin/main..HEAD
+```sh
+rtk proxy env SITE_URL=https://toml66l.github.io/proxy_info npm run build
+rtk npm run check
 ```
 
-最后一条有输出表示本地仍有未推送提交；确认后用 `git push origin main`，不要使用 force。若网络失败，先检查网络及代理配置，不要绕过 TLS 校验或把 Token 填进远程 URL。
+用户名主页或自定义域名应换成真实地址。当前 dist 已恢复为根路径本地预览构建，不能不重建就当作 /proxy_info/ 正式发布包。README 已同步更正旧 /airport/ 示例。
 
-## 下一步
+## 验证与下一步
 
-1. 确认本地提交已推送，GitHub Actions 构建是否成功；本次尚未确认线上部署完成。
-2. 在仓库 Settings → Pages 中将 Source 设为 GitHub Actions，再查看 Build and deploy guide 工作流。
-3. 启动本地预览，让用户先看首页和文章页，再按反馈调整设计或内容。
+本轮根路径与 /proxy_info/ 均已 build、check 通过：13 HTML、557 内部链接，以及标题、引用、元数据、锚点与子路径检查。随后恢复根路径 dist。本轮浏览器回归也已通过：1440/390/320 宽度的 12 个正常页面、导航、404、无横向溢出、无脚本错误，以及禁用 JavaScript 的手机目录与文章导航。首次因沙箱禁止监听 4187 失败，获环境授权后重跑通过。git diff --check 通过。
 
-## 凭据边界
+接续工作优先：
 
-本文件不保存 Token、密码、认证缓存或个人 Codex 配置。新机器应通过 GitHub 登录流程或可信凭据管理器单独配置。不要将凭据加入 Git，也不要把整个个人配置目录作为公开仓库的一部分同步。
+1. 如用户要看页面，先确认 4713 可见内容；如要发布，确认正式 SITE_URL、Git 工作区和部署方式。
+2. 用户提供 GitHub 推荐页面后配置 promotion.url；机场细节待用户决定。
+3. 确认分站与选题优先级后再写新文章，必要时澄清 ltproxy。
+4. 获得正式站点后再进行 Bing 验证和索引排查，不把未收录直接归因于“降权”。
+
+发布授权：用户已要求推送当前项目，使用单次命令的 http.proxy=http://127.0.0.1:7897，不必修改全局代理配置。不要保存或沿用聊天里的明文凭据；需要远程操作时使用安全登录或凭据管理器。
