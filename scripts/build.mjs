@@ -27,7 +27,7 @@ export async function build() {
   if (new Set(articles.map((article) => article.slug)).size !== articles.length) throw new Error('Duplicate article slug.');
 
   const icon = '<svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M7 8h8c4 0 5 4 9 4M7 16h18M7 24h8c4 0 5-4 9-4" stroke="currentColor" stroke-width="2"/><circle cx="7" cy="8" r="3" fill="currentColor"/><circle cx="25" cy="12" r="3" fill="currentColor"/><circle cx="7" cy="24" r="3" fill="currentColor"/><circle cx="25" cy="20" r="3" fill="currentColor"/></svg>';
-  const footer = `<footer class="site-footer"><div><a class="footer-brand" href="${href()}">${escapeHtml(config.name)}</a><p>先理解，再选择。让每一次连接都有据可循。</p></div><div class="footer-links"><a href="${href('about/')}">关于与使用边界</a><a href="#top">回到顶部 ↑</a></div><p class="footer-note">独立科普手册 · 科普内容与服务信息分开 · 内容复核 ${config.reviewed}</p></footer>`;
+  const footer = `<footer class="site-footer"><div><a class="footer-brand" href="${href()}">${escapeHtml(config.name)}</a><p>先理解，再选择。让每一次连接都有据可循。</p></div><div class="footer-links"><a href="${href('about/')}">关于与使用边界</a><a href="${escapeHtml(config.repository)}" rel="noopener">GitHub 仓库 ↗</a><a href="#top">回到顶部 ↑</a></div><p class="footer-note">独立科普手册 · 科普内容与服务分开 · 内容复核 ${config.reviewed}</p></footer>`;
   function layout({ title, description, route, content, active = '', article = false, noindex = false }) {
     const canonical = siteUrl && !noindex ? `${siteUrl}/${route}` : '';
     const structured = article ? { '@context': 'https://schema.org', '@type': 'Article', headline: title, description, inLanguage: 'zh-CN', dateModified: config.reviewed, ...(canonical ? { mainEntityOfPage: canonical } : {}) } : null;
