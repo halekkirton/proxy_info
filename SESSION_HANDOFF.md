@@ -124,6 +124,8 @@ rtk npm run check
 
 详细执行清单以 `site/RELEASE_PLAN.md` 为准，其中包括固定 URL、基线配置恢复方式、每版卡片/快捷入口数量及检查项。以下为简要版本；推送须以当次用户授权为准，不将旧发布授权当作永久授权。
 
+每次增量发布同步更新根目录 `README.md` 和 `site/PROFILE_README.md` 的公开内容；个人主页仓库如另建，需单独同步。用户随后明确 About 基本固定：`site/GITHUB_ABOUT.md` 是长期介绍，包含当前主旨与明确标为规划的后续方向，不随 V1–V6 重写。未来专题可能分站，不等于都在当前 Pages 发布。仅主旨变化或事实需纠正时修改 Description；发布时核对 Website，不放未发布页面链接、凭据或未经确认的推广地址。
+
 当前采用手工、低复杂度的分批发布方式，不引入 `published` 字段或自动草稿系统。文章正文继续全部保存在私有仓库中；每一版只调整 `site/config.json`、`scripts/build.mjs`、`scripts/check.mjs` 和 `scripts/browser-check.mjs` 中的公开页面与入口，然后构建、检查、提交并推送。
 
 ### 第 1 版：干净首发

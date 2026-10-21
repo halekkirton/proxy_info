@@ -65,7 +65,7 @@ export async function build() {
   }
 
   const aboutSource = await readFile(path.join(root, 'site/about.md'), 'utf8');
-  const about = `<main class="about-shell" id="main"><header class="article-header"><p class="eyebrow">ABOUT THIS FIELD GUIDE</p><h1>把复杂的名字，<br>放回清楚的关系里。</h1><p class="article-summary">这本手册不是软件排行榜，也不是节点推荐页。</p></header><article class="prose">${markdown.render(aboutSource)}</article><a class="button button-primary" href="${href('#chapters')}">回到阅读目录 ↗</a></main>`;
+  const about = `<main class="about-shell" id="main"><header class="article-header"><p class="eyebrow">ABOUT THIS FIELD GUIDE</p><h1>把复杂的名字，<br>放回清楚的关系里。</h1><p class="article-summary">这本手册不是软件排行榜，也不是节点推荐页。</p></header><article class="prose">${markdown.render(aboutSource.replace(/^# .+\r?\n/, ''))}</article><a class="button button-primary" href="${href('#chapters')}">回到阅读目录 ↗</a></main>`;
   pages.push({ route: 'about/', html: layout({ title: '关于本手册与使用边界', description: config.aboutDescription || '本站的写作方法、事实来源、隐私说明和内容纠错方式。', route: 'about/', content: about, active: 'about' }) });
   if (path.resolve(outputDirectory) !== path.join(root, 'dist')) throw new Error('Unexpected output directory.');
   await rm(outputDirectory, { recursive: true, force: true });
