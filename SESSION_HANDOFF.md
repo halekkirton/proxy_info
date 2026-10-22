@@ -185,3 +185,30 @@ rtk npm run check
 4. 获得正式站点后再进行 Bing 验证和索引排查，不把未收录直接归因于“降权”。
 
 发布授权：用户已要求推送当前项目，使用单次命令的 http.proxy=http://127.0.0.1:7897，不必修改全局代理配置。不要保存或沿用聊天里的明文凭据；需要远程操作时使用安全登录或凭据管理器。
+
+## 2026-10-22：自定义域名与第一阶段页面发布
+
+- 页面已发布到 `fiamitaa/fiamitaa`，当前只包含第一阶段静态页面：首页、关于页、第 01 篇文章、404、页面资源、`README.md`、`CNAME`、`robots.txt` 和 `sitemap.xml`。没有把源码、Markdown 正文、构建脚本或 GitHub Actions 放入该页面仓库。
+- GitHub Pages 自定义域名为 `ladderer.win`。绑定自定义域名后，页面必须按根路径构建；资源地址使用 `/assets/`，文章地址使用 `/articles/<slug>/`，不能继续使用 `/fiamitaa/` 前缀。正确入口为 `https://ladderer.win/`。
+- 页面仓库已加入 `CNAME`（内容为 `ladderer.win`），并生成 `https://ladderer.win/sitemap.xml`，当前包含首页、`/articles/what-is-network-proxy/` 和 `/about/`。`robots.txt` 已指向该 sitemap。
+- 页面页脚已加入 GitHub 个人主页入口，目标为 `https://github.com/fiamitaa`。源码构建配置中的 `repository` 也应保持该地址，不再使用 `fiamitaa/fiamitaa` 仓库地址作为展示链接。
+- 自定义域名构建应通过环境变量 `SITE_URL=https://ladderer.win` 生成；项目仓库的 GitHub Pages 工作流仍按源码构建方式运行。若继续维护 `fiamitaa/fiamitaa` 的纯静态页面，需从当前源码重新生成 dist 后再同步，避免手工页面与源码分离。
+- 最近源码仓库提交：`a140c10 Link footer to GitHub profile`；页面仓库最近提交：`9b00a62 Link pages to GitHub profile`。页面仓库工作区在本次记录时有 4 个静态 HTML 文件的未提交修改，链接地址已在提交 `9b00a62` 中改为个人主页；剩余未提交修改为把入口文字从“GitHub 仓库 ↗”改为“GitHub 主页 ↗”；下次继续推送前先检查并提交这些修改。
+- 本机 Node 曾出现 `libllhttp.9.3.dylib` 缺失，导致页面仓库目录中无法直接运行 npm 构建；源码仓库的 `npm run check` 曾正常通过。需要重新构建时先确认 Node/npm 运行环境，再执行 `npm run build`、`npm run check`。
+- 远程操作继续使用单次参数 `-c http.proxy=http://127.0.0.1:7897`，不要把 token 写入项目、文档、`.gitignore` 或 Git 配置。此前会话中的 token 已用于推送，不应继续明文保存或复用。
+
+- 文案最新约束：`site/GITHUB_ABOUT.md` 仅保存单段 Description；围绕十篇已有文章，突出少数重点，自然融入 Bing 关键词，不罗列全部主题、不写未来规划。根目录 README 使用同一风格，保留简短主题介绍、少量 emoji 和阅读入口，不强调文章数量。后续用户另给的机场推荐 About 属于其他用途，与本站无关，仅在聊天中交付，未写入项目。
+- 关于页重复 h1 已通过构建脚本移除 Markdown 首行一级标题解决。域名修复时曾用未设置 SITE_URL 的构建结果发布，随后单独更新 sitemap；因此下一次正式发布必须显式设置 SITE_URL=https://ladderer.win，检查 canonical、og:url 和文章结构化数据，不能仅凭 sitemap 存在认定这些元数据已齐全。
+- 本节为最新状态，优先于上文尚未发布、仅使用 Actions 或其他旧发布描述；用户明确要求页面仓库保留 README，其余仅发布静态产物。此次只更新本地恢复文档，未提交推送。
+
+
+## 2026-10-22：第二阶段本地完成（最新状态）
+
+- 本次用户要求按计划修改第二阶段页面；已开放第 02 篇《代理、VPN、Tor 的区别》，地址 `/articles/proxy-vpn-tor/`。当前仅公开 01、02：首页两张卡片、一个基础认知分组，正常页面共 4 个，另有 404。
+- 首页、桌面侧栏、手机目录、01 → 02 → 关于页的导航均已同步；第 03～10 篇未生成，也未加入 sitemap 或文章入口。沿用原正文及自然融入关键词的 description，不改写技术复核日期。
+- README 与个人主页原稿增加第二篇阅读入口，全部公开链接使用 https://ladderer.win；未强调文章数量。About 保持稳定，不添加未来规划或本轮文章清单。其他用途的机场推荐 About 仍只在聊天中交付。
+- 保留最近要求：正式域名根路径构建、页脚 GitHub 主页 https://github.com/fiamitaa、sitemap 与 robots、README，以及静态页面仓库只放发布产物的约束。源码仓库与页面仓库继续分开维护。
+- 构建及静态检查通过：4 个正常页面加 404、103 个内部链接；浏览器检查通过 1440/390/320 宽度、第二篇表格、前后篇、未发布页面 404、无横向溢出及脚本错误，关闭 JavaScript 的手机目录和 01 → 02 导航也通过。Playwright 自带 Chromium 缺失，使用本机 Chrome：BROWSER_PATH='/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'。
+- 检查脚本会导入构建脚本并重新生成 dist，因此运行 check/test:browser 时也要传 SITE_URL=https://ladderer.win，避免清掉 sitemap 或丢失 canonical。最终 dist 应再次确认 build-info 中 siteUrl 正确、sitemap 为四项。
+- 本轮仅完成本地修改与验证，未提交、未推送，线上仍是第一阶段。未同步 /tmp/fiamitaa-target；该目录此前四个 HTML 的本地修改仍需在正式发布时核对。下一步如用户要求发布，再从正式域名构建结果同步静态页面，保留 README/CNAME，排除 build-info、源码、凭据等，然后分别提交推送两仓库；远程操作继续使用本地 7897 代理。
+- 后续按 V3 开放 03、04；以 site/RELEASE_PLAN.md 的批次和本节最新状态为准，不采用上文旧的完整站检查数量或 Actions 发布结论。

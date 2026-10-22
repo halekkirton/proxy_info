@@ -13,7 +13,9 @@
 - 看机场订阅、稳定节点和机场测速时，哪些信息值得核对
 - 订阅凭据、软件来源、隐私和使用边界
 
-📖 **[开始阅读：翻墙是什么](https://toml66l.github.io/proxy_info/articles/what-is-network-proxy/)**  ·  **[打开手册首页](https://toml66l.github.io/proxy_info/)**
+📖 **[开始阅读：翻墙是什么](https://ladderer.win/articles/what-is-network-proxy/)**  ·  **[打开手册首页](https://ladderer.win/)**
+
+📘 [代理、VPN、Tor 有什么区别](https://ladderer.win/articles/proxy-vpn-tor/)：比较覆盖范围、信任关系和速度限制，弄清浏览器代理与 VPN 隧道各自能接管哪些流量。
 
 > 🔎 能连上，只说明某一段连接建立了。节点、服务商、账号和所在地规则仍然需要单独判断。
 

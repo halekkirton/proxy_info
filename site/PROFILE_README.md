@@ -4,8 +4,10 @@
 
 📚 内容涵盖代理、VPN 与 Tor 的区别，客户端、核心和协议的分工，Clash 与 Mihomo、V2Ray 与 Xray 的关系，以及订阅、节点、规则和 DNS。遇到连接问题，可以从应用设置、权限和日志入手排查；选择工具时，也要检查软件来源、服务商说明和凭据安全。
 
+📘 [代理、VPN、Tor 有什么区别](https://ladderer.win/articles/proxy-vpn-tor/)：比较覆盖范围、信任关系和速度限制，弄清浏览器代理与 VPN 隧道各自能接管哪些流量。
+
 > 🔎 先弄清工具负责什么。连接成功，不等于匿名或安全。
 
 文章保留官方参考资料，涉及隐私、法律与使用责任时提供一般性说明。内容分批开放，以网站目录为准。
 
-📖 **[进入手册](https://toml66l.github.io/proxy_info/)** · [关于与使用边界](https://toml66l.github.io/proxy_info/about/)
+📖 **[进入手册](https://ladderer.win/)** · [关于与使用边界](https://ladderer.win/about/)

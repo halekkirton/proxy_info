@@ -41,7 +41,7 @@ try {
       const dimensions = await page.evaluate(() => ({ client: document.documentElement.clientWidth, scroll: document.documentElement.scrollWidth }));
       assert.ok(dimensions.scroll <= dimensions.client + 1, `${viewport.width}px ${route}: horizontal overflow ${JSON.stringify(dimensions)}`);
       if (!route) {
-        assert.equal(await page.locator('.chapter-card').count(), 1);
+        assert.equal(await page.locator('.chapter-card').count(), 2);
         await page.screenshot({ path: path.join(root, `.preview/home-${viewport.width}.png`), fullPage: true });
         await page.getByRole('link', { name: '从第一篇开始' }).click();
         await page.waitForURL('**/articles/what-is-network-proxy/');
@@ -54,10 +54,15 @@ try {
         }
         await page.screenshot({ path: path.join(root, `.preview/article-${viewport.width}.png`), fullPage: true });
         await page.locator('.article-pagination a').last().click();
+        await page.waitForURL('**/articles/proxy-vpn-tor/');
+      }
+      if (route === 'articles/proxy-vpn-tor/') {
+        assert.ok(await page.locator('table').count() >= 1);
+        await page.locator('.article-pagination a').last().click();
         await page.waitForURL('**/about/');
       }
     }
-    const unpublished = await page.goto(`${base}articles/proxy-vpn-tor/`);
+    const unpublished = await page.goto(`${base}articles/proxy-ecosystem/`);
     assert.equal(unpublished.status(), 404, 'Unpublished article must not be accessible');
     const missing = await page.goto(`${base}does-not-exist/`);
     assert.equal(missing.status(), 404);
@@ -65,7 +70,7 @@ try {
     assert.deepEqual(errors, [], 'Browser JS errors');
     assert.deepEqual(failedRequests, [], 'Failed resource requests');
     await context.close();
-    console.log(`Browser passed: ${viewport.width}px, 3 pages, navigation, no overflow, no script errors.`);
+    console.log(`Browser passed: ${viewport.width}px, 4 pages, navigation, no overflow, no script errors.`);
   }
   const noScript = await browser.newContext({ javaScriptEnabled: false, viewport: { width: 390, height: 844 } });
   const page = await noScript.newPage();
@@ -74,7 +79,7 @@ try {
   await page.locator('.mobile-outline summary').click();
   assert.ok(await page.locator('.mobile-outline nav').isVisible());
   await page.locator('.article-pagination a').last().click();
-  await page.waitForURL('**/about/');
+  await page.waitForURL('**/articles/proxy-vpn-tor/');
   await noScript.close();
   console.log('Browser passed: JavaScript disabled, mobile directory and article navigation.');
 } finally {

@@ -4,8 +4,8 @@ import path from 'node:path';
 import { outputDirectory, root, sourceDirectory } from './build.mjs';
 
 const info = JSON.parse(await readFile(path.join(outputDirectory, 'build-info.json'), 'utf8'));
-assert.equal(info.articles, 1, 'Expected the first published article');
-assert.equal(info.pages.length, 3, 'Expected homepage, first article and about');
+assert.equal(info.articles, 2, 'Expected the first two published articles');
+assert.equal(info.pages.length, 4, 'Expected homepage, two articles and about');
 const documents = [...info.pages.map((route) => `${route}index.html`), '404.html'];
 const htmlByPath = new Map();
 const config = JSON.parse(await readFile(path.join(root, 'site/config.json'), 'utf8'));
@@ -53,7 +53,7 @@ for (const [file, html] of htmlByPath) {
 
 if (info.siteUrl) {
   const sitemap = await readFile(path.join(outputDirectory, 'sitemap.xml'), 'utf8');
-  assert.equal((sitemap.match(/<loc>/g) || []).length, 3);
+  assert.equal((sitemap.match(/<loc>/g) || []).length, 4);
   assert.ok(sitemap.includes(`${info.siteUrl}/articles/`));
 }
 console.log(`Passed: ${documents.length} HTML pages, ${checkedLinks} internal links, headings, references, metadata and base path.`);
