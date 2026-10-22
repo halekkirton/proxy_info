@@ -212,3 +212,11 @@ rtk npm run check
 - 检查脚本会导入构建脚本并重新生成 dist，因此运行 check/test:browser 时也要传 SITE_URL=https://ladderer.win，避免清掉 sitemap 或丢失 canonical。最终 dist 应再次确认 build-info 中 siteUrl 正确、sitemap 为四项。
 - 本轮仅完成本地修改与验证，未提交、未推送，线上仍是第一阶段。未同步 /tmp/fiamitaa-target；该目录此前四个 HTML 的本地修改仍需在正式发布时核对。下一步如用户要求发布，再从正式域名构建结果同步静态页面，保留 README/CNAME，排除 build-info、源码、凭据等，然后分别提交推送两仓库；远程操作继续使用本地 7897 代理。
 - 后续按 V3 开放 03、04；以 site/RELEASE_PLAN.md 的批次和本节最新状态为准，不采用上文旧的完整站检查数量或 Actions 发布结论。
+
+
+### 第二阶段提交与推送结果
+
+- 用户已授权：整个源码项目推送 toml66l，dist 静态内容推送 fiamitaa，并更改提交 username/email。两个仓库均已设置本地提交身份为 fiamitaa <202410717+fiamitaa@users.noreply.github.com>，不修改全局身份。
+- 源码提交 1fb733d 已通过本地 7897 代理推送成功。GitHub 提示 toml66l/proxy_info 已迁移至 halekkirton/proxy_info；此次旧 URL 转发成功，尚未修改 origin。
+- /tmp/fiamitaa-target 已同步正式域名 dist，排除 build-info.json，保留 CNAME，README 使用 site/PROFILE_README.md。本地提交为 7a5f9ca，工作区干净。
+- 页面推送失败：GitHub 返回 403，当前认证账户为 halekkirton，无 fiamitaa/fiamitaa 写权限。因此不能声称第二阶段已上线。提交身份与推送认证是两回事；后续需使用有该仓库权限的认证再推送，不能重复生成或覆盖本地提交。
